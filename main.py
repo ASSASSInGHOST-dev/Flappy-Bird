@@ -1,14 +1,24 @@
 import pygame
 import random
 import sys
+import os
 
 pygame.init()
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS  # PyInstaller temp folder
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 WIDTH, HEIGHT = 1200, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Flappy Bird")
 
-BG = pygame.transform.scale(pygame.image.load("BG.jpg"), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(
+    pygame.image.load(resource_path("BG.jpg")), (WIDTH, HEIGHT)
+)
 
 player_width = 55
 player_height = 40
@@ -27,7 +37,9 @@ Game_Over_Font = pygame.font.SysFont('bauhaus93', 90)
 final_font = pygame.font.SysFont('comicsans', 45)
 re_play = pygame.font.SysFont('comicsans', 35)
 
-bird = pygame.transform.scale(pygame.image.load("bird.png"), (player_width, player_height))
+bird = pygame.transform.scale(
+    pygame.image.load(resource_path("bird.png")), (player_width, player_height)
+)
 
 surface = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
 surface.fill((40, 40, 40, 180))
