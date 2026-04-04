@@ -12,7 +12,7 @@ BG = pygame.transform.scale(pygame.image.load("BG.jpg"), (WIDTH, HEIGHT))
 
 player_width = 55
 player_height = 40
-JUMP_strength = -6.25
+JUMP_strength = -8
 gravity = 0.5
 
 pipe_width = 70
@@ -124,6 +124,10 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 break
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    player_vel = JUMP_strength
+
         
         if not hit:
             if pipe_count > pipe_increment:
@@ -151,11 +155,6 @@ def main():
                     score+=1
                     pipe["passed"] = True
 
-        
-            jump = pygame.key.get_pressed()
-            if jump[pygame.K_SPACE] and player_y + JUMP_strength >= 0:
-                player_vel = JUMP_strength
-    
             player_vel += gravity
             player_y += player_vel
             if player_y >= floor_y:
