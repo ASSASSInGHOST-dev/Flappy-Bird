@@ -25,6 +25,7 @@ cap_width = pipe_width + 24
 score_font = pygame.font.SysFont('bauhaus93', 60)
 Game_Over_Font = pygame.font.SysFont('bauhaus93', 90)
 final_font = pygame.font.SysFont('comicsans', 45)
+re_play = pygame.font.SysFont('comicsans', 35)
 
 bird = pygame.transform.scale(pygame.image.load("bird.png"), (player_width, player_height))
 
@@ -76,13 +77,21 @@ def Game_Over_Screen(hit, score):
      Game_Over_Shadow = Game_Over_Font.render(f"GAME OVER!", True, (0, 0, 0))
      final_score = final_font.render(f"FINAL SCORE:{score}", True, (255, 255, 0))
      fs_shadow = final_font.render(f"FINAL SCORE:{score}", True, (0, 0, 0))
+     replay = re_play.render(f"Press Space Bar to restart again", True, (255, 255, 255))
+     replay_sh = re_play.render(f"Press Space Bar to restart again", True, (0, 0, 0))
      if hit:
          WIN.blit(surface, (0, 0))
          WIN.blit(Game_Over_Shadow, ((WIDTH - Game_Over_Shadow.get_width()) // 2, HEIGHT // 3))
          WIN.blit(Game_Over, ((WIDTH - Game_Over.get_width()) // 2 - 8, HEIGHT // 3))
          WIN.blit(fs_shadow, ((WIDTH - fs_shadow.get_width()) // 2 + 4, HEIGHT // 2 + 34))
          WIN.blit(final_score, ((WIDTH - final_score.get_width()) // 2 , HEIGHT // 2 + 30 ))
-         pygame.display.update() 
+         WIN.blit(replay_sh, ((WIDTH - replay_sh.get_width()) // 2 + 2, HEIGHT // 2 + 84))
+         WIN.blit(replay, ((WIDTH - replay.get_width()) // 2, HEIGHT // 2 + 82))
+         pygame.display.update()
+         space =  jump = pygame.key.get_pressed()
+         if jump[pygame.K_SPACE]:
+             main()
+         
 
 
 def main():
