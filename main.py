@@ -79,6 +79,7 @@ def Game_Over_Screen(hit, score):
      fs_shadow = final_font.render(f"FINAL SCORE:{score}", True, (0, 0, 0))
      replay = re_play.render(f"Press Space Bar to restart again", True, (255, 255, 255))
      replay_sh = re_play.render(f"Press Space Bar to restart again", True, (0, 0, 0))
+     
      if hit:
          WIN.blit(surface, (0, 0))
          WIN.blit(Game_Over_Shadow, ((WIDTH - Game_Over_Shadow.get_width()) // 2, HEIGHT // 3))
@@ -87,8 +88,11 @@ def Game_Over_Screen(hit, score):
          WIN.blit(final_score, ((WIDTH - final_score.get_width()) // 2 , HEIGHT // 2 + 30 ))
          WIN.blit(replay_sh, ((WIDTH - replay_sh.get_width()) // 2 + 2, HEIGHT // 2 + 84))
          WIN.blit(replay, ((WIDTH - replay.get_width()) // 2, HEIGHT // 2 + 82))
+         
          pygame.display.update()
+
          space =  jump = pygame.key.get_pressed()
+         
          if jump[pygame.K_SPACE]:
              main()
          
