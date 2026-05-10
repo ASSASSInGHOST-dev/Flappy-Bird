@@ -213,6 +213,13 @@ def handle_events(state):
     return state, True
 
 
+def get_difficulty(score):                          #Adding difficulty with score
+    new_speed = min(PIPE_SPEED + score // 5,8)
+    new_gap = max(PIPE_GAP - score // 25, 105)
+    new_interval = max(PIPE_INTERVAL - score // 12, 80)
+    return new_speed, new_gap, new_interval
+
+
 def update(state):
     """Advance physics, pipes, scoring, and collision. Mutates state in place."""
     if state["phase"] != "running":
@@ -220,19 +227,20 @@ def update(state):
 
     # ── Pipe spawning ──
     state["pipe_count"] += 1
-    if state["pipe_count"] > PIPE_INTERVAL:
+    speed, gap, interval = get_difficulty(state["score"])
+    if state["pipe_count"] > interval:
         state["pipe_count"] = 0
         top_height = random.randint(150, 400)
         state["pipes"].append({
             "x":          WIDTH,
             "top_height": top_height,
-            "bottom_y":   top_height + PIPE_GAP,
+            "bottom_y":   top_height + gap,
             "passed":     False
         })
 
     # ── Pipe movement & cleanup ──
     for pipe in state["pipes"]:
-        pipe["x"] -= PIPE_SPEED
+        pipe["x"] -= speed
 
     state["pipes"] = [p for p in state["pipes"] if p["x"] > -PIPE_WIDTH]
 
