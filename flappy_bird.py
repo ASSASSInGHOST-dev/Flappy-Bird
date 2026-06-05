@@ -6,18 +6,6 @@ import math
 
 pygame.init()
 
-# ─────────────────────────────────────────────
-# UTILITY
-# ─────────────────────────────────────────────
-
-def resource_path(relative_path):
-    """Return absolute path to a resource, works for both dev and PyInstaller builds."""
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
-
 
 # ─────────────────────────────────────────────
 # WINDOW & DISPLAY
